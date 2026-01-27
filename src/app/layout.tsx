@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Sea Mirror Villa | Lamar Development" }],
   creator: "Sea Mirror Villa | Lamar Development",
   publisher: "Sea Mirror Villa | Lamar Development",
-  alternates: { canonical: "https://seamirrordubai.com/" },
+  alternates: { canonical: "https://seamirror.co/" },
   openGraph: {
     title: "Sea Mirror Villa | Lamar Development",
     description:
@@ -40,22 +40,20 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://seamirrordubai.com/sea-mirror.jpg",
+        url: "https://seamirror.co/sea-mirror.jpg",
         width: 1200,
         height: 630,
         alt: "Sea Mirror Villa | Lamar Development",
       },
     ],
   },
-  verification: {
-    google: "rDq_dsst5U9vAcdJVndgamAtWP1veWeA0YvyVhcWjs8",
-  },
+
   twitter: {
     card: "summary_large_image",
     title: "Sea Mirror Villa | Lamar Development",
     description:
       "Sea Mirror in Jumeirah Bay Island by Lamar Development, Dubai is a project that offers 4, and 5-bedrooms penthouses with modern interiors & amenities. Contact us to get more info",
-    images: ["https://seamirrordubai.com/sea-mirror.jpg"],
+    images: ["https://seamirror.co/sea-mirror.jpg"],
   },
   robots: {
     index: true,
@@ -67,6 +65,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  verification: {
+    google: "isqGDNXPyV9U0ihyYbgZhyj2l-5IiArmT2lBTp7Ndkc",
   },
 };
 
@@ -84,7 +85,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-FSSFC40DL0"
+        src="https://www.googletagmanager.com/gtag/js?id=G-T3QLSVCJFN"
         strategy="afterInteractive"
       />
 
@@ -93,7 +94,7 @@ export default function RootLayout({
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-FSSFC40DL0', {
+          gtag('config', 'G-T3QLSVCJFN', {
             page_path: window.location.pathname,
           });
         `}

@@ -84,13 +84,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-T3QLSVCJFN"
-        strategy="afterInteractive"
-      />
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-T3QLSVCJFN"
+          strategy="afterInteractive"
+        />
 
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
@@ -98,7 +99,8 @@ export default function RootLayout({
             page_path: window.location.pathname,
           });
         `}
-      </Script>
+        </Script>
+      </head>
 
       <body className={`${poppins.variable} font-sans antialiased`}>
         {children}

@@ -94,7 +94,7 @@ export default function ContactForm() {
       email: formData.email,
       phone: formData.countryCode + formData.phone,
       bedrooms: formData?.bedrooms,
-      source: "seamirrordubai.com",
+      source: "seamirror.co",
     };
 
     try {

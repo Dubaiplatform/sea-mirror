@@ -1,0 +1,22 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "seamirrordubai.com" }],
+      "destination": "https://www.seamirror.co/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.seamirrordubai.com" }],
+      "destination": "https://www.seamirror.co/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "seamirror.co" }],
+      "destination": "https://www.seamirror.co/:path*",
+      "permanent": true
+    }
+  ]
+}

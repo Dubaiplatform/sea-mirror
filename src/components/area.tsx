@@ -4,32 +4,33 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Quote, MapPin, X } from "lucide-react";
 import { motion } from "framer-motion";
+import { trackClick } from "../lib/gtm";
 
 const nearbyLocations = [
   {
     title: "Downtown Dubai",
-    distance: "10 mints",
+    distance: "10 mins",
   },
   {
-    title: "City walk",
-    distance: "12 mints",
+    title: "City Walk",
+    distance: "12 mins",
   },
   {
     title: "Dubai International Airport",
-    distance: "15 mints",
+    distance: "15 mins",
   },
 
   {
     title: "Burj Al Arab",
-    distance: "22 mints",
+    distance: "22 mins",
   },
   {
     title: "Palm Jumeirah",
-    distance: "25 mints",
+    distance: "25 mins",
   },
   {
     title: "Dubai Marina",
-    distance: "27 mints",
+    distance: "27 mins",
   },
 ];
 
@@ -113,8 +114,8 @@ export function Area() {
               >
                 Internationally renowned architects, Jacobsen Arquitetura and
                 Studio MK27 have collaborated with interior designer Patricia
-                Urquiola, to create 18 distinct homes on Jumeira Bay Island. Sea
-                Mirror combines modernist architecture with nature
+                Urquiola, to create 18 distinct homes on Jumeirah Bay Island.
+                Sea Mirror combines modernist architecture with nature
               </motion.p>
             </blockquote>
 
@@ -126,7 +127,10 @@ export function Area() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <button
-                onClick={() => setIsMapOpen(true)}
+                onClick={() => {
+                  trackClick("View Map", "location");
+                  setIsMapOpen(true);
+                }}
                 className="inline-flex items-center justify-center px-10 py-4 border border-white text-white text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-colors duration-300"
               >
                 View Map
@@ -150,8 +154,8 @@ export function Area() {
                 transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 <Image
-                  src="/cummunity/2.webp"
-                  alt="Sea Mirror aerial view"
+                  src="/community/2.webp"
+                  alt="Aerial view of Jumeirah Bay Island, the seahorse-shaped island home to Sea Mirror Villas"
                   fill
                   className="object-cover"
                   sizes="100vw"
@@ -164,8 +168,8 @@ export function Area() {
                 transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 <Image
-                  src="/cummunity/3.jpg"
-                  alt="Sea Mirror luxury residence"
+                  src="/community/3.jpg"
+                  alt="Kitesurfers off the Jumeirah coastline with Burj Al Arab and the Dubai skyline behind"
                   fill
                   className="object-cover"
                   sizes="100vw"

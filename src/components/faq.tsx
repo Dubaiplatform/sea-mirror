@@ -1,52 +1,9 @@
 "use client";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../components/ui/accordion";
+import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 
-const faqs = [
-  {
-    question: "Where is Sea Mirror located?",
-    answer:
-      "Sea Mirror is located on Jumeirah Bay Island on the Dubai Water Canal and is connected to the entire city of Dubai through King Salman bin Abdulaziz Al Saud Street.",
-  },
-  {
-    question: "Is Sea Mirror good for investment?",
-    answer:
-      "Given its prime location on the waterfront of the Dubai Water Canal, as well as the elevated lifestyle it promises, Sea Mirror constitutes a great investment for those who wish to add luxurious high-end real estate options to their portfolio.",
-  },
-  {
-    question: "Can a foreigner buy property in Sea Mirror?",
-    answer:
-      "Yes, foreigners can buy property in Sea Mirror. It is located in a freehold area, which means non-UAE nationals can own the property completely. This applies to both the villas and residences, making it a great option for international buyers who want to invest in Dubai.",
-  },
-  {
-    question: "Is Sea Mirror a freehold property?",
-    answer:
-      "Yes, Sea Mirror is a freehold property. This means both locals and foreigners can fully own their homes and the land. Freehold ownership makes Sea Mirror more attractive for people looking for long-term investment or permanent residence in Dubai.",
-  },
-
-  {
-    question: "Which schools are located near Sea Mirror?",
-    answer:
-      "There are several highly rated schools near Sea Mirror. These include Horizon English School Dubai (British Curriculum), JSS Private School LLC (Indian Curriculum), Japanese School Dubai (Japanese Curriculum), and Al Ittihad Private School Jumeirah (American Curriculum).",
-  },
-  {
-    question: "What options are there for nurseries near Sea Mirror?",
-    answer:
-      "Parents looking for nurseries near Sea Mirror can consider Blossom Downtown Nursery Dubai, Learning Tree Nursery, and Little Angel Nursery.",
-  },
-  {
-    question:
-      "What amenities can one expect at Sea Mirror, Jumeirah Bay Island?",
-    answer:
-      "Sea Mirror offers its residents a wide range of well-maintained amenities that include a balcony, a BBQ area, a private garage, a children’s play area, a shopping mall, a swimming pool, a sports court, 24/7 security, and a gym.",
-  },
-];
+import { FAQS } from "../lib/site";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -82,9 +39,6 @@ export function FAQ() {
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <p className="text-lg  text-primary  mb-4">FAQ's</p>
-          {/* <h2 className="text-4xl md:text-5xl font-light leading-tight tracking-tight  mb-6 text-balance text-black">
-            Your questions, <span className="">answered.</span>
-          </h2> */}
         </motion.div>
 
         <motion.div
@@ -93,23 +47,19 @@ export function FAQ() {
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
         >
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, index) => (
-              <motion.div key={index} variants={itemVariants}>
-                <AccordionItem
-                  value={`item-${index}`}
-                  className="border-border text-black"
-                >
-                  <AccordionTrigger className="text-left hover:cursor-pointer text-lg font-light  transition-colors py-4">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className=" leading-relaxed pb-4">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              </motion.div>
-            ))}
-          </Accordion>
+          {/* Native <details> keeps every answer in the DOM for search
+              engines and AI assistants; content is only collapsed visually. */}
+          {FAQS.map((faq, index) => (
+            <motion.div key={index} variants={itemVariants}>
+              <details className="group border-b border-border text-black">
+                <summary className="flex items-center justify-between gap-4 text-left cursor-pointer list-none [&::-webkit-details-marker]:hidden text-lg font-light py-4 hover:underline">
+                  <h3 className="text-lg font-light">{faq.question}</h3>
+                  <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
+                </summary>
+                <p className="leading-relaxed pb-4 text-sm">{faq.answer}</p>
+              </details>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>

@@ -45,7 +45,7 @@ export function Header() {
             >
               <Link href="/" className="">
                 <h2 className="text-2xl font-light  text-foreground">
-                  Sea Mirror Villa
+                  Sea Mirror Villas
                 </h2>
               </Link>
             </motion.div>

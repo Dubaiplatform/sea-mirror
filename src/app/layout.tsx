@@ -1,7 +1,9 @@
 import React from "react";
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Poppins } from "next/font/google";
+
+import { SITE_URL, buildJsonLd } from "../lib/site";
 
 import "./globals.css";
 
@@ -11,49 +13,40 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
+const TITLE = "Sea Mirror Villas on Jumeirah Bay Island | Lamar Development";
+const DESCRIPTION =
+  "Sea Mirror by Lamar Development: 18 designer waterfront villas on Jumeirah Bay Island, Dubai. 4–5 bedroom homes from 13,217 sq ft with BVLGARI Resort access. Handover Q4 2026 — register your interest.";
+
 export const metadata: Metadata = {
-  title: "Sea Mirror Villa | Lamar Development",
-  description:
-    "Sea Mirror in Jumeirah Bay Island by Lamar Development, Dubai is a project that offers 4, and 5-bedrooms penthouses with modern interiors & amenities. Contact us to get more info",
-  keywords: [
-    "Sea Mirror Villa",
-    "Sea Mirror in Jumeirah",
-    "Lamar Development",
-    "Dubai project",
-    "Bay Island",
-    "5-bedroom",
-    "4-bedroom",
-    "luxury accommodation",
-    "wellness retreat",
-  ],
-  authors: [{ name: "Sea Mirror Villa | Lamar Development" }],
-  creator: "Sea Mirror Villa | Lamar Development",
-  publisher: "Sea Mirror Villa | Lamar Development",
-  alternates: { canonical: "https://seamirror.co/" },
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  authors: [{ name: "Sea Mirror Villas | Lamar Development" }],
+  creator: "Sea Mirror Villas | Lamar Development",
+  publisher: "Sea Mirror Villas | Lamar Development",
+  alternates: { canonical: `${SITE_URL}/` },
   openGraph: {
-    title: "Sea Mirror Villa | Lamar Development",
-    description:
-      "Sea Mirror in Jumeirah Bay Island by Lamar Development, Dubai is a project that offers 4, and 5-bedrooms penthouses with modern interiors & amenities. Contact us to get more info",
-    url: "",
-    siteName: "Sea Mirror Villa",
-    locale: "en_US",
+    title: TITLE,
+    description: DESCRIPTION,
+    url: `${SITE_URL}/`,
+    siteName: "Sea Mirror Villas",
+    locale: "en_AE",
     type: "website",
     images: [
       {
-        url: "https://seamirror.co/sea-mirror.jpg",
+        url: `${SITE_URL}/sea-mirror.jpg`,
         width: 1200,
         height: 630,
-        alt: "Sea Mirror Villa | Lamar Development",
+        alt: "Sea Mirror Villas — waterfront villa with infinity pool on Jumeirah Bay Island",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Sea Mirror Villa | Lamar Development",
-    description:
-      "Sea Mirror in Jumeirah Bay Island by Lamar Development, Dubai is a project that offers 4, and 5-bedrooms penthouses with modern interiors & amenities. Contact us to get more info",
-    images: ["https://seamirror.co/sea-mirror.jpg"],
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [`${SITE_URL}/sea-mirror.jpg`],
   },
   robots: {
     index: true,
@@ -85,26 +78,30 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-T3QLSVCJFN"
-          strategy="afterInteractive"
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(buildJsonLd()),
+          }}
         />
-
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-T3QLSVCJFN', {
-            page_path: window.location.pathname,
-          });
-        `}
-        </Script>
       </head>
 
+      <GoogleTagManager gtmId="GTM-TD85R57V" />
+
       <body className={`${poppins.variable} font-sans antialiased`}>
+        {/* GTM fallback for browsers with JavaScript disabled */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-TD85R57V"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         {children}
       </body>
+
+      <GoogleAnalytics gaId="G-X4P8T73HNX" />
     </html>
   );
 }

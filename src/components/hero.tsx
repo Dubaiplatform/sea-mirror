@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../components/ui/button";
 import { motion } from "framer-motion";
+import { trackClick } from "../lib/gtm";
 
 export function Hero() {
   return (
@@ -18,7 +19,7 @@ export function Hero() {
       >
         <Image
           src="/sea-mirror.jpg"
-          alt="Harbour Resort - Luxury estate surrounded by lush green landscape"
+          alt="Sea Mirror Villas — open-plan waterfront villa with infinity pool and tropical gardens on Jumeirah Bay Island"
           fill
           priority
           sizes="100vw"
@@ -43,7 +44,10 @@ export function Hero() {
         >
           Sea Mirror
           <br />
-          <span>Villa</span>
+          <span>Villas</span>
+          <span className="block mt-6 text-lg md:text-2xl lg:text-3xl font-light tracking-normal leading-snug">
+            18 Waterfront Homes on Jumeirah Bay Island by Lamar Development
+          </span>
         </motion.h1>
 
         <motion.p
@@ -67,7 +71,12 @@ export function Hero() {
             size="lg"
             className="bg-white text-black hover:bg-white/90 px-8 py-6 text-base"
           >
-            <Link href="#about">Explore More</Link>
+            <Link
+              href="#about"
+              onClick={() => trackClick("Explore More", "hero")}
+            >
+              Explore More
+            </Link>
           </Button>
         </motion.div>
       </div>

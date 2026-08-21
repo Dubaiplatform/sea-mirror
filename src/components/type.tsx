@@ -4,34 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 
-const UNIT_TYPES = [
-  {
-    category: "Sea Mirror Traveltine",
-    type: "4 Bedrooms",
-    size: "15,993 sq.ft.",
-  },
-  {
-    category: "Sea Mirror Copper",
-    type: "5 Bedrooms",
-    size: "13,217 sq.ft.",
-  },
-  {
-    category: "Sea Mirror Zinc",
-    type: "5 Bedrooms",
-    size: "13,969 sq.ft.",
-  },
-  {
-    category: "Sea Mirror Mahogany",
-    type: "5 Bedrooms",
-    size: "14,532 sq.ft.",
-  },
-
-  {
-    category: "Sea Mirror Marble",
-    type: "5 Bedrooms",
-    size: "16,366 sq.ft.",
-  },
-];
+import { UNIT_TYPES } from "../lib/site";
+import { trackClick } from "../lib/gtm";
 
 const PAYMENT_PLAN = [
   { title: "Down Payment", value: "10%" },
@@ -82,88 +56,55 @@ export function Type() {
           Curated Living Spaces
         </motion.h2>
 
-        {/* Desktop Layout */}
-        <div className="hidden md:block">
-          <div className="divide-y divide-white/10 border-t border-b border-white/10">
-            {UNIT_TYPES.map((item, index) => (
-              <motion.div
-                key={item.type}
-                className="grid grid-cols-5 items-center py-10 px-4 hover:bg-white/[0.03] transition-colors"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                {/* Name */}
-                <div className="col-span-2">
-                  <p className="text-sm uppercase tracking-widest text-muted-foreground mb-1">
-                    Unit Type
-                  </p>
-                  <p className="text-2xl font-light">{item.category}</p>
-                </div>
-
-                {/* Unit Type */}
-                <div>
-                  <p className="text-sm uppercase tracking-widest text-muted-foreground mb-1">
-                    Bedrooms
-                  </p>
-                  <p className="text-2xl font-light">{item.type}</p>
-                </div>
-
-                {/* Size */}
-                <div>
-                  <p className="text-sm uppercase tracking-widest text-muted-foreground mb-1">
-                    Size
-                  </p>
-                  <p className="text-xl">{item.size}</p>
-                </div>
-
-                {/* CTA */}
-                <div className="">
-                  <Link
-                    href="#contact-form"
-                    className="inline-block border-b border-primary text-primary tracking-wide hover:opacity-80 transition"
-                  >
-                    Price on Request
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Mobile Layout */}
-        <div className="md:hidden space-y-6">
+        {/* Single markup block, responsive layout (stacked cards on mobile, rows on desktop) */}
+        <div className="md:divide-y md:divide-white/10 md:border-t md:border-b md:border-white/10 space-y-6 md:space-y-0">
           {UNIT_TYPES.map((item, index) => (
             <motion.div
-              key={item.type}
-              className="border-[0.5px] border-primary bg-white/[0.02] backdrop-blur-sm p-6"
-              initial={{ opacity: 0, y: 30 }}
+              key={item.category}
+              className="grid grid-cols-1 md:grid-cols-5 md:items-center gap-4 md:gap-0 p-6 md:py-10 md:px-4 border-[0.5px] border-primary bg-white/[0.02] backdrop-blur-sm md:border-0 md:bg-transparent md:backdrop-blur-none hover:bg-white/[0.03] transition-colors"
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="mb-4">
-                <p className="text-sm uppercase tracking-widest text-muted-foreground "></p>
+              {/* Name */}
+              <div className="md:col-span-2">
+                <p className="text-sm uppercase tracking-widest text-muted-foreground mb-1">
+                  Unit Type
+                </p>
                 <p className="text-2xl font-light">{item.category}</p>
               </div>
 
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-                Unit Type
-              </p>
-              <p className="text-xl mb-4">{item.type}</p>
+              {/* Bedrooms */}
+              <div>
+                <p className="text-sm uppercase tracking-widest text-muted-foreground mb-1">
+                  Bedrooms
+                </p>
+                <p className="text-2xl font-light">{item.type}</p>
+              </div>
 
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-                Size
-              </p>
-              <p className="mb-6 text-xl">{item.size}</p>
+              {/* Size */}
+              <div>
+                <p className="text-sm uppercase tracking-widest text-muted-foreground mb-1">
+                  Size
+                </p>
+                <p className="text-xl">{item.size}</p>
+              </div>
 
-              <Link
-                href="#contact-form"
-                className="inline-block border-b border-primary text-primary tracking-wide"
-              >
-                Price on Request
-              </Link>
+              {/* CTA */}
+              <div className="">
+                <Link
+                  href="#contact-form"
+                  className="inline-block border-b border-primary text-primary tracking-wide hover:opacity-80 transition"
+                  onClick={() =>
+                    trackClick("Price on Request", "unit_types", {
+                      unit_type: item.category,
+                    })
+                  }
+                >
+                  Price on Request
+                </Link>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -222,7 +163,14 @@ export function Type() {
             asChild
             className="bg-white text-primary-foreground hover:bg-primary/90  hover:text-white"
           >
-            <Link href="#contact-form">Register Your Interest</Link>
+            <Link
+              href="#contact-form"
+              onClick={() =>
+                trackClick("Register Your Interest", "payment_plan")
+              }
+            >
+              Register Your Interest
+            </Link>
           </Button>
         </div>
       </div>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { trackClick } from "../lib/gtm";
 
 const section2 = [
   {
@@ -50,7 +51,7 @@ const section1 = [
     icon: "",
   },
   {
-    title: "Private access to Jumeira Bay's waterfront",
+    title: "Private access to Jumeirah Bay's waterfront",
     icon: "",
   },
 
@@ -116,7 +117,7 @@ export function Amenities() {
             <div className="w-full aspect-square">
               <Image
                 src={"/sea-mirror-villa/22.jpg"}
-                alt=""
+                alt="Sea Mirror villa home office with timber-slatted ceiling and glass walls opening to a terrace garden"
                 width={800}
                 height={800}
                 className="w-full h-full object-cover"
@@ -153,7 +154,7 @@ export function Amenities() {
             <div className="w-full aspect-square order-1 md:order-2">
               <Image
                 src={"/sea-mirror-villa/32.jpg"}
-                alt=""
+                alt="Sea Mirror villa lounge by Patricia Urquiola with stone walls, timber ceiling and modular sofa"
                 width={800}
                 height={800}
                 className="w-full h-full object-cover"
@@ -191,6 +192,7 @@ export function Amenities() {
           <Link
             className="bg-black text-white hover:bg-primary/90  hover:text-white text-lg px-4 py-4"
             href="#contact-form"
+            onClick={() => trackClick("Download Brochure", "amenities")}
           >
             Download Brochure
           </Link>

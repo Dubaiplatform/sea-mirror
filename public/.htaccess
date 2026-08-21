@@ -1,0 +1,10 @@
+# 301 the retired clone domain and the bare host to the canonical www host.
+# Only relevant when the static export is served by Apache; Vercel deployments
+# use vercel.json instead.
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^(www\.)?seamirrordubai\.com$ [NC]
+RewriteRule ^(.*)$ https://www.seamirror.co/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^seamirror\.co$ [NC]
+RewriteRule ^(.*)$ https://www.seamirror.co/$1 [R=301,L]

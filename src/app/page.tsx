@@ -26,7 +26,7 @@ export default function Home() {
             className="absolute inset-0 bg-fixed bg-center bg-cover"
             style={{ backgroundImage: "url('/sea-mirror-villa/37.jpg')" }}
             role="img"
-            aria-label="Iconic Burj Al Arab hotel in Dubai"
+            aria-label="Sea Mirror villa timber pool deck with loungers overlooking the Arabian Gulf"
           />
 
           {/* Dark overlay */}
@@ -53,7 +53,7 @@ export default function Home() {
             className="absolute inset-0 bg-fixed bg-center bg-cover"
             style={{ backgroundImage: "url('/sea-mirror-villa/19.jpg')" }}
             role="img"
-            aria-label="Iconic Burj Al Arab hotel in Dubai"
+            aria-label="Sea Mirror villa open-plan living and dining room under a timber ceiling, opening to the infinity pool"
           />
 
           {/* Dark overlay */}
@@ -79,7 +79,7 @@ export default function Home() {
             className="absolute inset-0 bg-fixed bg-center bg-cover"
             style={{ backgroundImage: "url('/sea-mirror-villa/49.jpg')" }}
             role="img"
-            aria-label="Iconic Burj Al Arab hotel in Dubai"
+            aria-label="Sea Mirror villa facade with golden mashrabiya screen surrounded by tropical planting"
           />
 
           {/* Dark overlay */}
@@ -106,7 +106,7 @@ export default function Home() {
             className="absolute inset-0 bg-fixed bg-center bg-cover"
             style={{ backgroundImage: "url('/sea-mirror-villa/43.jpg')" }}
             role="img"
-            aria-label="Iconic Burj Al Arab hotel in Dubai"
+            aria-label="Sea Mirror villa with vertical timber slats rising from a monolithic stone base"
           />
 
           {/* Dark overlay */}

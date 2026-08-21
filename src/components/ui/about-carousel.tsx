@@ -13,10 +13,18 @@ interface SlideProps {
   index: number;
   current: number;
   handleSlideClick: (index: number) => void;
+  /** Duplicate copies used for the infinite loop — kept out of the accessibility/crawl tree */
+  isClone?: boolean;
 }
 
 /* -------------------------------- Slide -------------------------------- */
-const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
+const Slide = ({
+  slide,
+  index,
+  current,
+  handleSlideClick,
+  isClone,
+}: SlideProps) => {
   const slideRef = useRef<HTMLLIElement>(null);
 
   const xRef = useRef(0);
@@ -54,7 +62,10 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
   const { src, title } = slide;
 
   return (
-    <div className="[perspective:1200px] [transform-style:preserve-3d]">
+    <div
+      className="[perspective:1200px] [transform-style:preserve-3d]"
+      aria-hidden={isClone || undefined}
+    >
       <li
         ref={slideRef}
         className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100
@@ -85,8 +96,9 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
           <img
             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-in-out"
             style={{ opacity: current === index ? 1 : 0.5 }}
-            alt={title}
+            alt={isClone ? "" : title}
             src={src}
+            loading="lazy"
             draggable={false}
           />
         </div>
@@ -209,6 +221,7 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
             slide={slide}
             index={index}
             current={current + slideCount}
+            isClone={index < slideCount || index >= slideCount * 2}
             handleSlideClick={(i) => {
               if (isMobile) {
                 setIsModalOpen(true);

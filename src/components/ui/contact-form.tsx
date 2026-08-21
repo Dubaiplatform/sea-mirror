@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 import { countriesList } from "../country-list";
+import { trackClick } from "../../lib/gtm";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 export default function ContactForm() {
   const countryRef = useRef<HTMLDivElement>(null);
@@ -79,6 +81,8 @@ export default function ContactForm() {
   };
 
   const handleSubmit = async () => {
+    trackClick("Submit", "contact_form");
+
     const newErrors = {
       name: !formData.name ? "Name is required" : "",
       email: validateEmail(formData.email),
@@ -110,7 +114,12 @@ export default function ContactForm() {
         },
       );
 
-      // alert("Form submitted successfully");
+      sendGTMEvent({
+        event: "generate_lead",
+        form_location: "contact_form",
+        source: payload.source,
+      });
+
       setFormData({
         name: "",
         email: "",

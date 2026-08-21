@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { trackClick } from "../lib/gtm";
+
 /* ----------------------------------
    DATA
 ----------------------------------- */
@@ -106,7 +108,7 @@ function ImageSlider({ images }: { images: string[] }) {
             <div className="relative w-full h-full cursor-grab active:cursor-grabbing">
               <Image
                 src={images[index]}
-                alt="Property image"
+                alt={`Sea Mirror Residences by Lamar Development on Jumeirah Bay Island — image ${index + 1}`}
                 fill
                 className="object-cover pointer-events-none select-none"
                 priority
@@ -123,11 +125,12 @@ function ImageSlider({ images }: { images: string[] }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="absolute inset-0 pointer-events-none z-0"
+            aria-hidden
           >
             <div className="relative w-full h-full">
               <Image
                 src={images[getNextIndex()]}
-                alt="Next property image"
+                alt=""
                 fill
                 className="object-cover select-none"
                 draggable={false}
@@ -143,11 +146,12 @@ function ImageSlider({ images }: { images: string[] }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="absolute inset-0 pointer-events-none z-0"
+            aria-hidden
           >
             <div className="relative w-full h-full">
               <Image
                 src={images[getPrevIndex()]}
-                alt="Previous property image"
+                alt=""
                 fill
                 className="object-cover select-none"
                 draggable={false}
@@ -223,7 +227,7 @@ export function SilimarProject() {
           <div className="text-white space-y-4 flex flex-col justify-center">
             <div>
               <div className="text-2xl">Sea Mirror Residences</div>
-              <p>Jumeirah 2, Dubai</p>
+              <p>Jumeirah Bay Island, Dubai</p>
             </div>
 
             <p className="font-thin">
@@ -233,7 +237,15 @@ export function SilimarProject() {
               indoor and outdoor spaces
             </p>
 
-            <Link href={"#contact-form"} className="text-primary underline">
+            <Link
+              href="https://seamirrorresidence.com/"
+              className="text-primary underline"
+              onClick={() =>
+                trackClick("Learn More", "similar_projects", {
+                  project: "Sea Mirror Residences",
+                })
+              }
+            >
               Learn More
             </Link>
           </div>

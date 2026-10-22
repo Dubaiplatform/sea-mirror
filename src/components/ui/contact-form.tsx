@@ -4,14 +4,18 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import { countriesList } from "../country-list";
 import { trackClick } from "../../lib/gtm";
 import { sendGTMEvent } from "@next/third-parties/google";
+import { RECAPTCHA_SECRET_KEY } from "../../lib/site";
 
 export default function ContactForm() {
   const countryRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [countrySearch, setCountrySearch] = useState("");
   const [isBedroomOpen, setIsBedroomOpen] = useState(false);
@@ -42,6 +46,7 @@ export default function ContactForm() {
     name: "",
     email: "",
     phone: "",
+    recaptcha: "",
   });
 
   const validatePhone = (phone: string) => {
@@ -87,32 +92,83 @@ export default function ContactForm() {
       name: !formData.name ? "Name is required" : "",
       email: validateEmail(formData.email),
       phone: validatePhone(formData.phone),
+      recaptcha: "",
     };
 
     setErrors(newErrors);
 
     if (Object.values(newErrors).some(Boolean)) return;
 
-    const payload = {
-      name: formData.name,
-      email: formData.email,
-      phone: formData.countryCode + formData.phone,
-      bedrooms: formData?.bedrooms,
-      source: "seamirror.co",
-    };
+    if (!executeRecaptcha) {
+      setErrors((prev) => ({
+        ...prev,
+        recaptcha: "Security check is still loading. Please try again.",
+      }));
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
-      const res = await fetch(
-        "https://hooks.zapier.com/hooks/catch/15977350/uqpeg0q/",
+      const recaptchaToken = await executeRecaptcha("submit");
+
+      if (!recaptchaToken) {
+        setErrors((prev) => ({
+          ...prev,
+          recaptcha: "Security check failed. Please try again.",
+        }));
+        setIsSubmitting(false);
+        return;
+      }
+
+      const verifyBody = new URLSearchParams({
+        secret: RECAPTCHA_SECRET_KEY,
+        response: recaptchaToken,
+      });
+
+      const verifyRes = await fetch(
+        "https://www.google.com/recaptcha/api/siteverify",
         {
           method: "POST",
-          mode: "no-cors",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: JSON.stringify(payload),
+          body: verifyBody,
         },
-      );
+      ).catch(() => null);
+
+      if (verifyRes?.ok) {
+        const verifyJson = (await verifyRes.json()) as {
+          success?: boolean;
+          score?: number;
+        };
+        if (!verifyJson.success || (verifyJson.score ?? 0) < 0.5) {
+          setErrors((prev) => ({
+            ...prev,
+            recaptcha: "Security check failed. Please try again.",
+          }));
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.countryCode + formData.phone,
+        bedrooms: formData?.bedrooms,
+        source: "seamirror.co",
+        recaptchaToken,
+      };
+
+      await fetch("https://hooks.zapier.com/hooks/catch/15977350/uqpeg0q/", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: JSON.stringify(payload),
+      });
 
       sendGTMEvent({
         event: "generate_lead",
@@ -132,10 +188,8 @@ export default function ContactForm() {
         flag: "🇦🇪",
         name: "UAE",
       });
-      // setShowThankYou(true);
       router.push("/thank-you");
     } catch (error) {
-      // alert("Submission failed");
       setFormData({
         name: "",
         email: "",
@@ -149,6 +203,8 @@ export default function ContactForm() {
         name: "UAE",
       });
       console.error(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -188,8 +244,9 @@ export default function ContactForm() {
         </h2>
 
         <div className="text-black text-center mb-8">
-          Your information will be used to respond to your query and send you
-          information about this development.
+          Your information will be used by Sea Mirror (ORN 31877) to
+          respond to your query and send you information about Sea Mirror Villas
+          by Lamar Development.
         </div>
 
         <div className="space-y-6">
@@ -341,10 +398,37 @@ export default function ContactForm() {
             whileTap={{ scale: 0.98 }}
             onClick={handleSubmit}
             type="button"
-            className="w-full bg-[#2a2a2a] text-white py-4  text-lg font-medium hover:bg-[#1a1a1a] transition-colors mt-8"
+            disabled={isSubmitting}
+            className="w-full bg-[#2a2a2a] text-white py-4  text-lg font-medium hover:bg-[#1a1a1a] transition-colors mt-8 disabled:opacity-60"
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </motion.button>
+          {errors.recaptcha && (
+            <p className="text-red-500 text-sm mt-2 text-center">
+              {errors.recaptcha}
+            </p>
+          )}
+          <p className="text-xs text-[#666] text-center mt-4">
+            This site is protected by reCAPTCHA and the Google{" "}
+            <a
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noreferrer"
+              className="underline"
+            >
+              Privacy Policy
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://policies.google.com/terms"
+              target="_blank"
+              rel="noreferrer"
+              className="underline"
+            >
+              Terms of Service
+            </a>{" "}
+            apply.
+          </p>
         </div>
 
         {showThankYou && (

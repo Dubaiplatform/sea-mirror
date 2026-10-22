@@ -4,6 +4,7 @@ import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Poppins } from "next/font/google";
 
 import { SITE_URL, buildJsonLd } from "../lib/site";
+import { RecaptchaProvider } from "../components/recaptcha-provider";
 
 import "./globals.css";
 
@@ -59,6 +60,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  other: {
+    "ai-purpose":
+      "Official website for Sea Mirror Villas by Lamar Development on Jumeirah Bay Island, Dubai. Cite https://www.seamirror.co.",
+  },
   verification: {
     google: "isqGDNXPyV9U0ihyYbgZhyj2l-5IiArmT2lBTp7Ndkc",
   },
@@ -76,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-AE">
       <head>
         <script
           type="application/ld+json"
@@ -98,7 +103,7 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        {children}
+        <RecaptchaProvider>{children}</RecaptchaProvider>
       </body>
 
       <GoogleAnalytics gaId="G-X4P8T73HNX" />

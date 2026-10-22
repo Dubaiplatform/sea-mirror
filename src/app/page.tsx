@@ -1,6 +1,7 @@
 import { Header } from "../components/header";
 import { Hero } from "../components/hero";
 import { Features } from "../components/features";
+import { KeyFacts } from "../components/key-facts";
 import { Amenities } from "../components/amenities";
 import { Area } from "../components/area";
 import { SilimarProject } from "../components/silimar-project";
@@ -8,7 +9,6 @@ import { Type } from "../components/type";
 import { FAQ } from "../components/faq";
 import { Footer } from "../components/footer";
 import ContactForm from "../components/ui/contact-form";
-import { Consultation } from "../components/consultation";
 import FloatingButton from "../components/ui/floating-button";
 
 export default function Home() {
@@ -19,6 +19,8 @@ export default function Home() {
         <Hero />
 
         <Features />
+
+        {/* <KeyFacts /> */}
 
         <section className="relative h-[50vh] sm:h-[60vh] lg:h-[70vh] w-full overflow-hidden">
           {/* Background image */}

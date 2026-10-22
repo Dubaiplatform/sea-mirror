@@ -130,6 +130,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.grecaptcha-badge {
+  visibility: hidden !important;
+}
+
 .map-dark iframe {
   filter: invert(90%) hue-rotate(180deg) brightness(90%) contrast(90%);
 }

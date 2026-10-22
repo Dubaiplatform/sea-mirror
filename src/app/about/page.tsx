@@ -87,7 +87,7 @@ export default function AboutPage() {
 
           <h2 className="text-2xl font-light mt-12 mb-4">Contact</h2>
           <p className="text-muted-foreground leading-relaxed">
-            Marketed by {BROKERAGE.name} (RERA ORN {BROKERAGE.reraOrn}).{" "}
+            Marketed by {BROKERAGE.name}.{" "}
             {BROKERAGE.relationship} Phone: {BROKERAGE.phoneDisplay}. Email:{" "}
             {BROKERAGE.email}. Address: {BROKERAGE.address}.
           </p>

@@ -16,7 +16,6 @@ export const BROKERAGE = {
   phone: "",
   phoneDisplay: "",
   email: "info@seamirror.co",
-  reraOrn: "31877",
   trakheesiPermit:
     "Valid Dubai Land Department Trakheesi permits held by Sea Mirror . Permit details available on request.",
 };
@@ -57,7 +56,7 @@ export const KEY_FACTS = [
   { label: "Resort access", value: PROJECT.resort },
   {
     label: "Marketed by",
-    value: `${BROKERAGE.name} (RERA ORN ${BROKERAGE.reraOrn})`,
+    value: BROKERAGE.name,
   },
 ];
 
@@ -209,7 +208,6 @@ export function buildJsonLd() {
         url: `${SITE_URL}/`,
         telephone: BROKERAGE.phone,
         email: BROKERAGE.email,
-        identifier: `ORN ${BROKERAGE.reraOrn}`,
         address: {
           "@type": "PostalAddress",
           streetAddress:

@@ -244,7 +244,7 @@ export default function ContactForm() {
         </h2>
 
         <div className="text-black text-center mb-8">
-          Your information will be used by Sea Mirror (ORN 31877) to
+          Your information will be used by Sea Mirror to
           respond to your query and send you information about Sea Mirror Villas
           by Lamar Development.
         </div>

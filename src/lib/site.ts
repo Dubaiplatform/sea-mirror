@@ -35,7 +35,7 @@ export const PROJECT = {
   resort: "BVLGARI Hotel and Resort, marina and yacht club",
   officialUrl: SITE_URL,
   description:
-    "Sea Mirror Villas is a collection of 18 designer waterfront villas by Lamar Development on Jumeirah Bay Island, Dubai. Architecture is by Jacobsen Arquitetura and Studio MK27; interiors are by Patricia Urquiola. Homes are 4–5 bedroom villas from 13,217 to 16,366 sq ft, with complimentary access to the neighbouring BVLGARI Hotel and Resort. Handover is targeted for Q4 2026. The official website is https://www.seamirror.co.",
+    "Sea Mirror Villas is a collection of 18 designer waterfront villas by Lamar Development on Jumeirah Bay Island, Dubai. Architecture is by Jacobsen Arquitetura and Studio MK27; interiors are by Patricia Urquiola. Homes are 4–5 bedroom villas from 13,217 to 16,366 sq ft, with complimentary access to the neighbouring BVLGARI Hotel and Resort. Handover is targeted for Q4 2026. ",
 };
 
 export const KEY_FACTS = [
@@ -97,7 +97,7 @@ export const FAQS = [
   {
     question: "What is Sea Mirror Dubai?",
     answer:
-      "Sea Mirror Villas is an ultra-luxury collection of 18 unique waterfront villas by Lamar Development on Jumeirah Bay Island, Dubai. It is a villa community — not penthouses. The official website is https://www.seamirror.co.",
+      "Sea Mirror Villas is an ultra-luxury collection of 18 unique waterfront villas by Lamar Development on Jumeirah Bay Island, Dubai. It is a villa community — not penthouses. ",
   },
   {
     question: "What is the official website for Sea Mirror Villas?",
